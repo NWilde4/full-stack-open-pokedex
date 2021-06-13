@@ -35,3 +35,4 @@ jobs:
           heroku_email: "wilde.norman@yahoo.com"
           healthcheck: "https://pokedex-norman-wilde.herokuapp.com/health"
           checkstring: "ok"
+          rollbackonhealthcheckfailed: true
