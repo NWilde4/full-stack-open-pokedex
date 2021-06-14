@@ -34,6 +34,11 @@ jobs:
         env:
           CUSTOM_TEST_LAST: ${{ contains(join(github.event.commits.*.message), 'skip') }}
         run: echo "$CUSTOM_TEST_LAST"
+      - name: custom test four
+        env:
+          CONTAINS_SKIP: ${{ contains(join(github.event.commits.*.message), 'skip') }}
+        if: ${{ CONTAINS_SKIP == false }}
+        run: echo "custom test works with conditional!"
 
 
 
