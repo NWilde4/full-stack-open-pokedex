@@ -43,7 +43,7 @@ jobs:
         if: ${{ env.CONTAINS_SKIP == 'true' }}
         run: echo "it was true"
       - name: custom test six
-        if: ${{ env.CONTAINS_SKIP == 'false' }} && ${{ env.CONTAINS_SKIP == 'true' }}         
+        if: ${{ env.CONTAINS_SKIP == 'true' }} && ${{ env.CONTAINS_SKIP == 'false' }}         
         run: echo "this definitely should not get printed"
 
 
