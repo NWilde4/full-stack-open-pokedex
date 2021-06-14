@@ -33,8 +33,9 @@ jobs:
       - name: deploy
         env:
           CONTAINS_SKIP: ${{ contains(join(github.event.commits.*.message), 'skip') }}
-        if: ${{ env.CONTAINS_SKIP == 'false' }}
-        if: ${{ github.event_name == 'push' }}
+        if: |
+          ${{ env.CONTAINS_SKIP == 'false' }} ||
+          ${{ github.event_name == 'push' }}
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
@@ -47,8 +48,9 @@ jobs:
       - name: Bump version and push tag
         env:
           CONTAINS_SKIP: ${{ contains(join(github.event.commits.*.message), 'skip') }}
-        if: ${{ env.CONTAINS_SKIP == 'false' }}
-        if: ${{ github.event_name == 'push' }}
+        if: |
+          ${{ env.CONTAINS_SKIP == 'false' }} ||
+          ${{ github.event_name == 'push' }}
         uses: anothrNick/github-tag-action@1.33.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
