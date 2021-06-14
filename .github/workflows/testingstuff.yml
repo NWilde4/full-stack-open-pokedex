@@ -26,7 +26,16 @@ jobs:
         env:
           CUSTOM_TEST_ONE: ${{ contains(github.event.commits.*.message, 'skip') }}
         run: echo "$CUSTOM_TEST_ONE"      
-        - name: custom test two
+      - name: custom test two
         env:
           CUSTOM_TEST_TWO: ${{ join(github.event.commits.*.message) }}
-        run: echo "$CUSTOM_TEST_TWO"
+        run: echo "$CUSTOM_TEST_TWO"      
+      - name: custom test three
+        env:
+          CUSTOM_TEST_THREE: ${{ contains(github.event.commits.*.message, join(github.event.commits.*.message)) }}
+        run: echo "$CUSTOM_TEST_THREE"
+
+
+
+
+
