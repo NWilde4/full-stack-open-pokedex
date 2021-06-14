@@ -11,6 +11,8 @@ on:
 jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-18.04
+    env:
+      CONTAINS_SKIP: ${{ contains(join(github.event.commits.*.message), 'skip') }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -31,8 +33,6 @@ jobs:
           start: npm run start-prod
           wait-on: http://localhost:5000
       - name: deploy
-        env:
-          CONTAINS_SKIP: ${{ contains(join(github.event.commits.*.message), 'skip') }}
         if: |
           ${{ env.CONTAINS_SKIP == 'false' }} ||
           ${{ github.event_name == 'push' }}
@@ -46,8 +46,6 @@ jobs:
           rollbackonhealthcheckfailed: true
       - uses: actions/checkout@v2
       - name: Bump version and push tag
-        env:
-          CONTAINS_SKIP: ${{ contains(join(github.event.commits.*.message), 'skip') }}
         if: |
           ${{ env.CONTAINS_SKIP == 'false' }} ||
           ${{ github.event_name == 'push' }}
