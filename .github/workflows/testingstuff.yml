@@ -38,7 +38,7 @@ jobs:
         env:
           CONTAINS_SKIP: ${{ contains(join(github.event.commits.*.message), 'skip') }}
         if: ${{ env.CONTAINS_SKIP == 'false' }}
-        run: echo "custom test works with conditional!"
+        run: echo "custom test works with conditionals!"
 
 
 
