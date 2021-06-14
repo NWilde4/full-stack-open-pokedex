@@ -47,7 +47,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Bump version and push tag
         if: |
-          ${{ env.CONTAINS_SKIP == 'false' }} &&
+          ${{ env.CONTAINS_SKIP == 'true' }} &&
           ${{ github.event_name == 'push' }}
         uses: anothrNick/github-tag-action@1.33.0
         env:

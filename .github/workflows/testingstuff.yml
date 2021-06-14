@@ -8,6 +8,8 @@ on:
 jobs:
   a_test_job:
     runs-on: ubuntu-18.04
+    env:
+      CONTAINS_SKIP: ${{ contains(join(github.event.commits.*.message), 'skip') }}
     steps:
       - uses: actions/checkout@v2
       - name: gihub context
@@ -35,10 +37,16 @@ jobs:
           CUSTOM_TEST_LAST: ${{ contains(join(github.event.commits.*.message), 'skip') }}
         run: echo "$CUSTOM_TEST_LAST"
       - name: custom test four
-        env:
-          CONTAINS_SKIP: ${{ contains(join(github.event.commits.*.message), 'skip') }}
         if: ${{ env.CONTAINS_SKIP == 'false' }}
-        run: echo "custom test works with conditionals!"
+        run: echo "it was false!"
+      - name: custom test five
+        if: ${{ env.CONTAINS_SKIP == 'true' }}
+        run: echo "it was true"
+      - name: custom test six
+        if: |
+          ${{ 'false' == 'true' }} &&
+          ${{ env.CONTAINS_SKIP == 'true' }} &&          
+        run: echo "this should not get printed"
 
 
 
