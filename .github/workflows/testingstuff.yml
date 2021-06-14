@@ -21,4 +21,12 @@ jobs:
       - name: commit messages
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
-        run: echo "$COMMIT_MESSAGES"
+        run: echo "$COMMIT_MESSAGES"      
+      - name: custom test one
+        env:
+          CUSTOM_TEST_ONE: ${{ contains(github.event.commits.*.message, 'skip') }}
+        run: echo "$CUSTOM_TEST_ONE"      
+        - name: custom test two
+        env:
+          CUSTOM_TEST_TWO: ${{ join(github.event.commits.*.message) }}
+        run: echo "$CUSTOM_TEST_TWO"
