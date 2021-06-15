@@ -23,7 +23,7 @@ jobs:
       - name: lint
         run: npm run eslint
       - name: build
-        run: npm run buildZ
+        run: npm run build
       - name: Send notification to Slack if build failed
         uses: 8398a7/action-slack@v3
         with:
